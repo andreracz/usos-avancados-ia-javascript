@@ -19,37 +19,6 @@ function buildMultiModalMessage(role:"user" , content: string, imageUrl: string)
     return {role, content: [{ type: "text", "text": content }, { type: "image_url", "image_url": { "url": imageUrl} }]};
 }
 
-const tools: Array<OpenAI.ChatCompletionTool> = [
-    {
-        "type": "function",
-        "function": {
-            "name": "contact-information-extraction",
-            "description": "report the contact information extracted from the text",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "name extracted from the text",
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "email extracted from the text",
-                    },
-                    "phone": {
-                        "type": "string",
-                        "description": "phone extracted from the text",
-                    },
-                    
-
-                },
-                "required": ["name"],
-                "additionalProperties": false,
-            },
-        }
-    }
-] 
-
 
 async function executaMultimodal(texto: string, image_url: string) {
     const systemPrompt = "Você é um assistente virtual. Você está aqui para ajudar as pessoas com suas dúvidas e perguntas.";
@@ -61,8 +30,7 @@ async function executaMultimodal(texto: string, image_url: string) {
 
     const chatCompletion = await openai.chat.completions.create({
         messages: messages,
-        model: model,
-        tools: tools
+        model: model
     });
     return chatCompletion.choices[0].message.content;
 }

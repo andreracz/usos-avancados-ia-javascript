@@ -27,7 +27,7 @@ const bankingFunctions = new BankingFunctions(contaCorrente, boletos, contaFavor
 (async () => {
     const messages = await OpenAIFunctionsHelper.toolLoops(openai, model, [
         OpenAIFunctionsHelper.buildMessage("system", "Voce é um assistente bancário que ajuda um cliente a transacionar em usa conta. Seja solicito e educado."),
-        OpenAIFunctionsHelper.buildMultiModalMessage("user", "Faça essa transferência", OpenAIFunctionsHelper.fileToImageUrlBase64("./images/transferencia.jpg")),
+        OpenAIFunctionsHelper.buildMultiModalMessage("user", "Faça essa transferência e me retorne o saldo.", OpenAIFunctionsHelper.fileToImageUrlBase64("./images/transferencia.jpg")),
     ], bankingFunctions);
     console.dir(messages, {depth: null});
 })();
